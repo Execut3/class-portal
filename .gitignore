@@ -1,4 +1,5 @@
 *.pyc
 /media
+/files
 db.sqlite3
 users.list
