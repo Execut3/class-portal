@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>
+            جدول رتبه‌بندی تیم‌ها
+        </h2>
+
+        <hr/>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+    زمان ارسال
+                    </th>
+                    <th>
+    نام تیم
+                    </th>
+                    <th>
+    وضعیت پاسخ
+                    </th>
+                    <th>
+    امتیاز دریافتی
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submit in submits %}
+                    <tr>
+                        <td>
+                            {{ submit.submit_time|timesince }}
+                            قبل
+                        </td>
+                        <td>
+                            {{ submit.team.name }}
+                        </td>
+                        <td>
+                            {% if submit.status %}
+                                قابل قبول
+                            {% else %}
+                            غیر قابل قبول
+                            {% endif %}
+                        </td>
+                        <td>{{ submit.received_score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

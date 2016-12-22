@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>
+            جدول رتبه‌بندی تیم‌ها
+        </h2>
+        <hr/>
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    رتبه
+                </th>
+                <th>
+                    نام تیم
+                </th>
+                <th>
+                    اعضای تیم
+                </th>
+                <th>
+                    امتیاز
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for team in team_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ team.team.name }}</td>
+                    <td>
+                        {% for player in team.players %}
+                            {{ player }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ team.team.score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+{% endblock %}

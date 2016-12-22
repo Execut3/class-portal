@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+{#            <div class="col-md-6">#}
+{#                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">#}
+{#            </div>#}
+            <!-- /.col-md-8 -->
+            <div class="col-md-12">
+                <h2>
+چالش‌های مطرح‌شده
+                </h2>
+                <p>
+در این قسمت می‌توانید آخرین چالش‌های مطرح‌شده را مشاهده نمایید.
+                </p>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Content Row -->
+        <div class="row">
+            {% for task in tasks %}
+                <div class="col-md-4">
+                    <h4>{{ task.title }}</h4>
+                    <p>
+زمان ایجاد چالش:
+                        {{ task.creation_date|timesince }}
+                        قبل
+                    </p>
+                    <a class="btn btn-default" href="{% url 'task' task_id=task.id %}">
+مشاهده اطلاعات این چالش
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

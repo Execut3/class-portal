@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+            <div class="col-md-6">
+                <h1>{{ session.title }}</h1>
+                <hr/>
+                <h3>
+                    مطالب ارائه شده در این جلسه
+                </h3>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+        <hr/>
+        {% for content in contents %}
+            <p><b>{{ content.title }}</b></p>
+            <p align="jusfity">
+                {{ content.content|safe }}
+            </p>
+            <br>
+        {% endfor %}
+
+        <hr>
+        <p>
+            فایل‌های ضمیمه شده برای این جلسه
+        </p>
+        {% for file in files %}
+            <a href="{{ file.file.url }}">{{ file.title }}</a>
+            <small>
+                ارسال شده در تاریخ
+                {{ file.creation_date|timesince }}
+                قبل
+            </small>
+        {% endfor %}
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

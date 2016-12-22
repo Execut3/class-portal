@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+            <div class="col-md-12">
+                <h2>
+                    عنوان چالش:
+                    <b>{{ task.title }}</b>
+                </h2>
+                <hr/>
+                <h3>
+چالش مورد نظر:
+                </h3>
+                <p align="justify">{{ task.description|safe }}</p>
+                <hr/>
+                {% if task.file %}
+                    <a href="{{ task.file.url }}">
+                    دریافت فایل ضمیمه شده
+                    </a>
+                {% endif %}
+                <small>(
+                    ارسال شده در تاریخ
+                    {{ task.creation_date|timesince }}
+                    قبل
+                )</small>
+
+                <hr/>
+                <h4>
+                    امیتاز در نظر گرفته شده برای این چالش:
+                    <b>{{ task.score }}</b>
+                </h4>
+                <h4>
+                    {% if is_finished %}
+                        زمان به پایان رسیده است
+                    {% else %}
+                        زمان پایان:
+                        <b>{{ task.deadline|timeuntil }}</b>
+                        <hr/>
+                        <form method="post" action="{% url 'submit_task' %}">
+                            {% csrf_token %}
+                            {{ submit_result_form.as_p }}
+                            <input type="hidden" value="{{ task.id }}" name="task_id">
+                            <input type="submit" value="ارسال جواب">
+                        </form>
+                    {% endif %}
+                </h4>
+
+            </div><!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+        <hr/>
+
+        <div class="row">
+            <h4>
+            پاسخ‌های ارسال شده توسط تیم شما
+            </h4>
+
+            {% for task_result in task_results %}
+                <p>
+                عنوان کلی در مورد پاسخ:
+                    <b>{{ task_result.title }}</b>
+                </p>
+                <p align="justify">
+                    توضیح در مورد پاسخ:
+                </p>
+                {{ task_result.content|safe }}
+                <p>
+                زمان ارسال:
+                {{ task_result.submit_time|timesince }}
+                قبل
+                </p>
+                <hr>
+            {% endfor %}
+        </div>
+
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
+
+
+{% block js_files %}
+
+    {{ submit_result_form.media }}
+
+{% endblock %}

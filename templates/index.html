@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+{#            <div class="col-md-6">#}
+{#                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">#}
+{#            </div>#}
+            <!-- /.col-md-8 -->
+            <div class="col-md-12">
+                <h2>
+دوره تست نفوذ برنامه‌های کاربردی تحت وب
+                </h2>
+                <p>
+                    در این قسمت می‌توانید جلسات مختلف و فایل‌ها و مطالب به اشتراک‌ گذاشته‌شده برای هر کدام را مشاهده نمایید.
+                </p>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+        <hr/>
+        <!-- Content Row -->
+        <div class="row">
+            {% for main_content in main_contents %}
+                <div class="col-md-4">
+                    <h4>{{ main_content.title }}</h4>
+                    <p>{{ main_content.creation_date|timesince }} ago</p>
+                    <a class="btn btn-default" href="{% url 'main_content' id=main_content.id %}">
+                    مشاهده
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Content Row -->
+        <div class="row">
+            {% for session in class_sessions %}
+                <div class="col-md-4">
+                    <h4>{{ session.title }}</h4>
+                    <p>{{ session.creation_date|timesince }} ago</p>
+                    <a class="btn btn-default" href="{% url 'class_session' id=session.id %}">
+                        مشاهده اطلاعات این جلسه
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}

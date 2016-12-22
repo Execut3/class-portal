@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Heading Row -->
+        <div class="row">
+{#            <div class="col-md-6">#}
+{#                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">#}
+{#            </div>#}
+            <!-- /.col-md-8 -->
+            <div class="col-md-12">
+                <h2>{{ main_content.title }}</h2>
+                <p align="justify">
+                    {{ main_content.content|safe }}
+                </p>
+                {% if main_content.file %}
+                    <a href="{{ main_content.file.url }}">
+                        دریافت فایل
+                    </a>
+                {% endif %}
+                <p>
+                    ایجاد شده در تاریخ
+                    {{ main_content.creation_date|timesince }}
+                </p>
+            </div>
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+{% endblock %}
