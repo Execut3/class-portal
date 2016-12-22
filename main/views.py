@@ -4,6 +4,7 @@ import os
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404
@@ -21,9 +22,26 @@ from django.utils import timezone
 
 @login_required(login_url='login')
 def index(request):
-    class_sessions = ClassSession.objects.all()
     main_contents = MainContent.objects.all()
+    try:
+        page = int(request.GET.get('page', 1))
+    except:
+        page = 1
+    paginator = Paginator(main_contents, 10)
+    try:
+        main_contents = paginator.page(page)
+    except PageNotAnInteger:
+        main_contents = paginator.page(1)
+    except EmptyPage:
+        main_contents = paginator.page(paginator.num_pages)
+
     return render_to_response('index.html', locals(), RequestContext(request))
+
+
+@login_required(login_url='login')
+def sessions(request):
+    class_sessions = ClassSession.objects.all()
+    return render_to_response('sessions.html', locals(), RequestContext(request))
 
 
 @login_required(login_url='login')

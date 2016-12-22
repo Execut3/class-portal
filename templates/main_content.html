@@ -8,12 +8,11 @@
 
         <!-- Heading Row -->
         <div class="row">
-{#            <div class="col-md-6">#}
-{#                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">#}
-{#            </div>#}
-            <!-- /.col-md-8 -->
-            <div class="col-md-12">
-                <h2>{{ main_content.title }}</h2>
+
+            <h2>{{ main_content.title }}</h2>
+
+            <div class="col-md-10 col-md-offset-1">
+
                 <p align="justify">
                     {{ main_content.content|safe }}
                 </p>
@@ -23,11 +22,12 @@
                     </a>
                 {% endif %}
                 <p>
-                    ایجاد شده در تاریخ
-                    {{ main_content.creation_date|timesince }}
+                    ایجاد شده در تاریخ:
+                    <i dir="ltr">{{ main_content.creation_date|timesince }}</i>
+                    گذشته
                 </p>
             </div>
-            <!-- /.col-md-4 -->
+
         </div>
         <!-- /.row -->
 

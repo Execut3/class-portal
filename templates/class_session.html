@@ -7,39 +7,44 @@
     <div class="container">
 
         <!-- Heading Row -->
-        <div class="row">
-            <div class="col-md-6">
-                <h1>{{ session.title }}</h1>
-                <hr/>
-                <h3>
-                    مطالب ارائه شده در این جلسه
-                </h3>
-            </div>
-            <!-- /.col-md-4 -->
+        <div class="row text-center">
+            <h1>{{ session.title }}</h1>
         </div>
         <!-- /.row -->
 
         <hr/>
-        {% for content in contents %}
-            <p><b>{{ content.title }}</b></p>
-            <p align="jusfity">
-                {{ content.content|safe }}
-            </p>
-            <br>
-        {% endfor %}
+        <h4>
+            مطالب ارائه‌‌شده:
+        </h4>
+        <br>
 
-        <hr>
-        <p>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                {% for content in contents %}
+                    <p><b>{{ content.title }}</b></p>
+                    <p align="jusfity">
+                        {{ content.content|safe }}
+                    </p>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h4>
             فایل‌های ضمیمه شده برای این جلسه
-        </p>
-        {% for file in files %}
-            <a href="{{ file.file.url }}">{{ file.title }}</a>
-            <small>
-                ارسال شده در تاریخ
-                {{ file.creation_date|timesince }}
-                قبل
-            </small>
-        {% endfor %}
+        </h4>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                {% for file in files %}
+                    <a href="{{ file.file.url }}">{{ file.title }}</a>
+                    <small>
+                        ارسال شده در تاریخ
+                        {{ file.creation_date|timesince }}
+                        قبل
+                    </small>
+                {% endfor %}
+            </div>
+        </div>
 
     </div>
     <!-- /.container -->

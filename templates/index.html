@@ -12,12 +12,12 @@
 {#                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">#}
 {#            </div>#}
             <!-- /.col-md-8 -->
-            <div class="col-md-12">
-                <h2>
+            <div class="col-md-12 text-center">
+                <h3>
 دوره تست نفوذ برنامه‌های کاربردی تحت وب
-                </h2>
+                </h3>
                 <p>
-                    در این قسمت می‌توانید جلسات مختلف و فایل‌ها و مطالب به اشتراک‌ گذاشته‌شده برای هر کدام را مشاهده نمایید.
+                    در این قسمت می‌توانید فایل‌ها و مطالب اصلی ارائه‌شده در کلاس را مشاهده کنید.
                 </p>
             </div>
             <!-- /.col-md-4 -->
@@ -28,9 +28,9 @@
         <!-- Content Row -->
         <div class="row">
             {% for main_content in main_contents %}
-                <div class="col-md-4">
-                    <h4>{{ main_content.title }}</h4>
-                    <p>{{ main_content.creation_date|timesince }} ago</p>
+                <div class="col-md-4 text-center">
+                    <h4><b>{{ main_content.title }}</b></h4>
+                    <p dir="ltr">{{ main_content.creation_date|timesince }} ago</p>
                     <a class="btn btn-default" href="{% url 'main_content' id=main_content.id %}">
                     مشاهده
                     </a>
@@ -39,21 +39,30 @@
         </div>
         <!-- /.row -->
 
-        <hr>
 
-        <!-- Content Row -->
-        <div class="row">
-            {% for session in class_sessions %}
-                <div class="col-md-4">
-                    <h4>{{ session.title }}</h4>
-                    <p>{{ session.creation_date|timesince }} ago</p>
-                    <a class="btn btn-default" href="{% url 'class_session' id=session.id %}">
-                        مشاهده اطلاعات این جلسه
-                    </a>
-                </div>
-            {% endfor %}
+        <div class="row text-center">
+            {% if main_contents.has_other_pages %}
+              <ul class="pagination">
+                {% if main_contents.has_previous %}
+                  <li><a href="?page={{ main_contents.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in main_contents.paginator.page_range %}
+                  {% if main_contents.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if main_contents.has_next %}
+                  <li><a href="?page={{ main_contents.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
         </div>
-        <!-- /.row -->
 
     </div>
     <!-- /.container -->

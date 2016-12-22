@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^register$', register_view, name='register'),
     url(r'^$', index, name='root'),
     url(r'^index$', index, name='index'),
+    url(r'^sessions$', sessions, name='sessions'),
     url(r'^change-password$', change_password, name='change_password'),
     url(r'^main-content/(?P<id>\d+)$', main_content, name='main_content'),
     url(r'^session/(?P<id>\d+)$', class_session, name='class_session'),

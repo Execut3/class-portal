@@ -3,3 +3,4 @@
 /files
 db.sqlite3
 users.list
+/.idea/*
